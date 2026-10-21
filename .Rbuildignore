@@ -1,0 +1,6 @@
+^LICENSE\.md$
+^data-raw$
+^\.github$
+^README\.Rmd$
+^CLAUDE\.md$
+^\.claude$
