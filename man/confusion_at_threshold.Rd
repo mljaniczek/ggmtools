@@ -12,28 +12,40 @@ confusion_at_threshold(
 )
 }
 \arguments{
-\item{score_mat}{Numeric p x p matrix of edge scores.}
+\item{score_mat}{Numeric p x p matrix of edge scores, or a vector of edge
+scores (e.g. an upper triangle) of the same length as \code{truth_mat}.}
 
-\item{truth_mat}{p x p matrix of true edges (non-zero = edge).}
+\item{truth_mat}{p x p matrix of true edges (non-zero = edge), or a vector
+matching \code{score_mat}.}
 
 \item{threshold}{Numeric threshold. Default 0.5.}
 
 \item{upper_only}{Logical. If \code{TRUE} (default), only the upper
 triangle is used (each undirected edge once); otherwise all off-diagonal
-entries.}
+entries. Ignored for vectors.}
 }
 \value{
 A list with \code{TP}, \code{FP}, \code{TN}, \code{FN}, \code{TPR}
-(sensitivity), \code{FPR}, \code{precision} and \code{F1}. Rates whose
-denominator is zero are \code{NA}.
+(sensitivity, power), \code{FPR}, \code{precision}, \code{F1},
+\code{FDR} (\code{1 - precision}) and \code{MCC} (Matthews correlation
+coefficient). Rates whose denominator is zero are \code{NA}; in
+particular \code{FDR} is \code{NA} when no edge is predicted and
+\code{MCC} is \code{NA} when any margin of the confusion table is 0.
 }
 \description{
 Compares a score matrix (e.g. posterior inclusion probabilities) with a
 true adjacency matrix. An edge is predicted when its score is
-\code{>= threshold}.
+\code{>= threshold}. A 0/1 (or logical) estimated adjacency matrix can be
+passed as \code{score_mat} with the default threshold.
+}
+\details{
+Edges with a missing score or truth are dropped.
 }
 \examples{
 truth <- matrix(c(0, 1, 0, 1, 0, 1, 0, 1, 0), 3, 3)
 score <- matrix(c(0, .9, .6, .9, 0, .2, .6, .2, 0), 3, 3)
 confusion_at_threshold(score, truth, threshold = 0.5)
+
+# A 0/1 estimated adjacency matrix
+confusion_at_threshold(threshold_to_adjacency(score, 0.5), truth)$MCC
 }

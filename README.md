@@ -14,8 +14,10 @@ one downstream script works on fits from either.
 |---|---|
 | Shared edge-table format | `edge_index()`, `as_pip_table()` |
 | Generics with methods in each package | `pip_table()` (long table of PIPs), `pcor_estimate()` (one partial-correlation matrix per group) |
-| Evaluation | `roc_auc()` (tie-correct ROC/AUC), `plot_roc()`, `confusion_at_threshold()` |
-| Utilities | `precision_to_pcor()` |
+| Evaluation | `roc_auc()` (tie-correct ROC/AUC), `pr_auc()` (tie-correct PR/AUPR), `plot_roc()`, `confusion_at_threshold()` (incl. FDR, MCC), `topk_overlap()` |
+| Estimation error and tuning | `relative_frobenius()`, `kl_divergence()`, `ggm_bic()` |
+| Inference | `bayes_fdr()` (Bayesian FDR selection), `pooled_perm_pvalues()` (pooled permutation null) |
+| Matrix and edge utilities | `precision_to_pcor()`, `threshold_to_adjacency()`, `diff_adjacency()`, `upper_tri_to_matrix()`, `diff_edge_table()` |
 | Data | `brca_pi3k`: TCGA BRCA PI3K-pathway expression, Normal vs Tumor (100 x 28 each) |
 
 ## Edge tables
