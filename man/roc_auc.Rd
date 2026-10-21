@@ -8,9 +8,10 @@ roc_auc(score_mat, truth_mat)
 }
 \arguments{
 \item{score_mat}{Numeric p x p matrix of edge scores (higher = more
-likely an edge).}
+likely an edge), or a vector of edge scores.}
 
-\item{truth_mat}{p x p matrix of true edges (non-zero = edge).}
+\item{truth_mat}{p x p matrix of true edges (non-zero = edge), or a vector
+matching \code{score_mat}.}
 }
 \value{
 A list with \code{FPR} and \code{TPR} (the curve, from (0, 0) to
