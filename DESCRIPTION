@@ -1,0 +1,29 @@
+Package: ggmtools
+Title: Shared Tools for Multiple Gaussian Graphical Model Packages
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Margaret",
+           family = "Janiczek",
+           role = c("aut", "cre"),
+           email = "mjaniczek@umass.edu")
+Description: Generics, evaluation metrics and data shared by packages that
+    estimate multiple Gaussian graphical models, such as 'spikeyglass' and
+    'multiGGMr'. Provides a common long edge-table format with generics to
+    extract posterior inclusion probabilities and partial-correlation
+    estimates from fitted models, tie-correct ROC curves and AUC, confusion
+    metrics at a threshold, conversion of precision matrices to partial
+    correlations, and a TCGA breast-cancer PI3K pathway expression dataset.
+License: MIT + file LICENSE
+URL: https://github.com/mljaniczek/ggmtools
+BugReports: https://github.com/mljaniczek/ggmtools/issues
+Depends: 
+    R (>= 4.1.0)
+Imports:
+    graphics
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
