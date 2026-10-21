@@ -1,4 +1,4 @@
-# ggmtools (development version)
+# ggmtools 0.0.0.9000
 
 * Initial version. Collects the functions previously duplicated in
   spikeyglass and multiGGMr (`precision_to_pcor()`, `confusion_at_threshold()`,
