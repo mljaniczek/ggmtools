@@ -50,3 +50,5 @@ po/*~
 rsconnect/
 
 .DS_Store
+.positai
+docs

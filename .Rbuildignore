@@ -4,3 +4,9 @@
 ^README\.Rmd$
 ^CLAUDE\.md$
 ^\.claude$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.positai$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
