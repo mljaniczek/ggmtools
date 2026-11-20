@@ -1,11 +1,10 @@
 Package: ggmtools
 Title: Shared Tools for Multiple Gaussian Graphical Model Packages
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Margaret",
-           family = "Janiczek",
-           role = c("aut", "cre"),
-           email = "mjaniczek@umass.edu")
+Authors@R: c(
+    person("Margaret", "Janiczek", , "mjaniczek@umass.edu", role = c("aut", "cre")),
+    person("Raji", "Balasubramanian", , "rbalasub@umass.edu", role = "aut")
+  )
 Description: Generics, evaluation metrics and data shared by packages that
     estimate multiple Gaussian graphical models, such as 'spikeyglass' and
     'multiGGMr'. Provides a common long edge-table format with generics to
