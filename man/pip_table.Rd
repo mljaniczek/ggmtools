@@ -23,7 +23,7 @@ graph.}
 }
 Methods document how their PIPs are defined. For example, in
 \pkg{spikeyglass} the edge indicator is shared by all groups, so
-\code{pip} is identical across groups; in \pkg{multiGGMr} each group has
+\code{pip} is identical across groups; in \pkg{multiGGM} each group has
 its own graph.
 }
 \description{

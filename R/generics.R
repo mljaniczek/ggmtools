@@ -18,7 +18,7 @@
 #'   }
 #'   Methods document how their PIPs are defined. For example, in
 #'   \pkg{spikeyglass} the edge indicator is shared by all groups, so
-#'   \code{pip} is identical across groups; in \pkg{multiGGMr} each group has
+#'   \code{pip} is identical across groups; in \pkg{multiGGM} each group has
 #'   its own graph.
 #'
 #' @seealso [pcor_estimate()], [edge_index()]
@@ -37,7 +37,7 @@ pip_table <- function(fit, ...) UseMethod("pip_table")
 #'   variable names as dimnames. The names are the group names, or
 #'   \code{"Group_1"}, \code{"Group_2"}, ... if the groups are unnamed. Methods
 #'   document which estimate they return. For example, \pkg{spikeyglass}
-#'   returns the MAP estimate and \pkg{multiGGMr} the posterior mean.
+#'   returns the MAP estimate and \pkg{multiGGM} the posterior mean.
 #'
 #' @seealso [pip_table()], [precision_to_pcor()]
 #' @export

@@ -7,7 +7,7 @@ Authors@R: c(
   )
 Description: Generics, evaluation metrics and data shared by packages that
     estimate multiple Gaussian graphical models, such as 'spikeyglass' and
-    'multiGGMr'. Provides a common long edge-table format with generics to
+    'multiGGM'. Provides a common long edge-table format with generics to
     extract posterior inclusion probabilities and partial-correlation
     estimates from fitted models, tie-correct ROC and precision-recall
     curves, confusion metrics at a threshold, estimation losses, Bayesian
@@ -24,6 +24,7 @@ Imports:
     stats
 Suggests: 
     testthat (>= 3.0.0)
+Config/Needs/website: JGL
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
