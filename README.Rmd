@@ -44,7 +44,7 @@ remotes::install_github("mljaniczek/ggmtools")
 | What | Functions |
 |---|---|
 | Shared edge-table format | `edge_index()`, `as_pip_table()`, `diff_edge_table()` |
-| Generics with methods in each package | `pip_table()` (long table of PIPs), `pcor_estimate()` (one partial-correlation matrix per group) |
+| Generics with methods in each package | `pip_table()` (long table of PIPs), `pcor_estimate()` (one partial-correlation matrix per group; ggmtools also provides the method for JGL fits) |
 | Evaluation against a known graph | `roc_auc()`, `pr_auc()` (tie-correct ROC and PR curves), `plot_roc()`, `confusion_at_threshold()` (TPR, FPR, precision, F1, FDR, MCC), `topk_overlap()` |
 | Estimation error and tuning | `relative_frobenius()`, `kl_divergence()`, `ggm_bic()` |
 | Edge selection | `bayes_fdr()` (Bayesian FDR from posterior probabilities), `pooled_perm_pvalues()` (pooled permutation null) |

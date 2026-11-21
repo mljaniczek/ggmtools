@@ -10,7 +10,8 @@ ggmtools has two layers:
 
 * **Generics** (`pip_table()`, `pcor_estimate()`) that a package
   implements for its own fitted objects. spikeyglass and multiGGM provide
-  methods, so the same downstream code runs on fits from either.
+  methods, and ggmtools itself provides `pcor_estimate()` for JGL fits, so
+  the same downstream code runs on fits from any of them.
 * **Matrix-level functions** for everything else: evaluation, losses,
   tuning, edge selection and edge tables. These take precision,
   partial-correlation, score or adjacency matrices, or vectors of
@@ -25,7 +26,7 @@ layer.
 
 | The method returns | Examples | ggmtools functions |
 |---|---|---|
-| Precision matrices, one per group | JGL (fused or group), graphical lasso per group, spikeyglass, inverse covariance | `precision_to_pcor()`, `threshold_to_adjacency()`, `kl_divergence()`, `relative_frobenius()`, `ggm_bic()` (tuning), then everything below |
+| Precision matrices, one per group | JGL (fused or group; `pcor_estimate()` works on its fits), graphical lasso per group, spikeyglass, inverse covariance | `precision_to_pcor()`, `threshold_to_adjacency()`, `kl_divergence()`, `relative_frobenius()`, `ggm_bic()` (tuning), then everything below |
 | Partial correlations, as matrices or upper-triangle vectors | multiGGM `pcor_estimate()`, DiNGO | `upper_tri_to_matrix()`, `diff_edge_table()`, `threshold_to_adjacency()` |
 | Edge scores (higher = more likely an edge or a difference) | \|partial correlation\|, random-forest importance (JRF), D-trace \|Δ\|, test statistics | `roc_auc()`, `pr_auc()`, `confusion_at_threshold()`, `topk_overlap()` |
 | Posterior edge probabilities | multiGGM (MRF priors and mGHS), spikeyglass `pip_table()` | `bayes_fdr()`, and the score functions above |
@@ -54,14 +55,16 @@ best <- grid[which.min(grid$bic), ]
 best
 ```
 
-Refit at the chosen penalties and convert to partial correlations:
+Refit at the chosen penalties. ggmtools has a `pcor_estimate()` method
+for JGL fits, which converts each precision matrix with
+`precision_to_pcor()`. JGL does not store group names, so pass them, and
+fit with `return.whole.theta = TRUE` so that every variable is kept:
 
 ```{r jgl-fit}
 fit <- JGL(brca_pi3k, penalty = "fused", lambda1 = best$lambda1,
            lambda2 = best$lambda2, return.whole.theta = TRUE)
 genes <- colnames(brca_pi3k$Normal)
-pcor <- lapply(fit$theta, precision_to_pcor)
-names(pcor) <- names(brca_pi3k)
+pcor <- pcor_estimate(fit, groupnames = names(brca_pi3k))
 
 # Number of edges in each group's graph
 sapply(fit$theta, function(theta) sum(threshold_to_adjacency(theta, 1e-8)) / 2)
@@ -117,28 +120,29 @@ normal$selected <- bayes_fdr(normal$pip, alpha = 0.05)
 
 `pip_table()` and `pcor_estimate()` form a common interface. Supporting a
 new method means writing an *adapter*: S3 methods that convert its fitted
-object into the shared output. For a JGL fit, which has class `"jgl"`:
+object into the shared output. ggmtools ships the adapter for JGL fits
+(class `"jgl"`), and it is a template for others. Here it is for a
+hypothetical method whose fits have class `"mymethod"` and store a list
+of precision matrices in `fit$precision`:
 
-```{r adapter}
-pcor_estimate.jgl <- function(fit, varnames = NULL, groupnames = NULL, ...) {
-  out <- lapply(fit$theta, precision_to_pcor)
-  if (!is.null(varnames)) out <- lapply(out, function(m) {
-    dimnames(m) <- list(varnames, varnames); m
-  })
-  names(out) <- groupnames %||% paste0("Group_", seq_along(out))
+```{r adapter, eval = FALSE}
+pcor_estimate.mymethod <- function(fit, varnames = NULL, groupnames = NULL, ...) {
+  out <- lapply(fit$precision, precision_to_pcor)
+  p <- nrow(out[[1]])
+  varnames <- if (!is.null(varnames)) varnames else
+    if (!is.null(rownames(out[[1]]))) rownames(out[[1]]) else paste0("V", seq_len(p))
+  out <- lapply(out, function(m) { dimnames(m) <- list(varnames, varnames); m })
+  names(out) <- if (!is.null(groupnames)) groupnames else
+    paste0("Group_", seq_along(out))
   out
 }
-`%||%` <- function(x, y) if (is.null(x)) y else x
-
-str(pcor_estimate(fit, varnames = genes, groupnames = names(brca_pi3k)),
-    max.level = 1)
 ```
 
 In a script, defining the function is enough for dispatch. In a package,
-register it with `S3method(ggmtools::pcor_estimate, jgl)` in the
+register it with `S3method(ggmtools::pcor_estimate, mymethod)` in the
 NAMESPACE (with roxygen: `@exportS3Method ggmtools::pcor_estimate`). A
-method that returns posterior probabilities can build its
-`pip_table()` output with `as_pip_table()`.
+method that returns posterior probabilities can build its `pip_table()`
+output with `as_pip_table()`.
 
 ## References
 
