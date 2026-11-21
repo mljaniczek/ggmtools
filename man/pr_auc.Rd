@@ -48,8 +48,8 @@ block.}
 \item{\code{"interpolated"}}{Exact area under the curve obtained by
 interpolating true and false positives linearly within each tied
 block (Davis & Goadrich 2006; the continuous version, as in the
-\pkg{PRROC} package). This is the expected PR curve under random
-tie-breaking.}
+\pkg{PRROC} package). Precision is not linear in recall within a
+block, so this differs from the trapezoid.}
 }
 Without ties, \code{"average_precision"} and \code{"interpolated"} are
 close; with large tied blocks \code{"trapezoid"} can be much larger than

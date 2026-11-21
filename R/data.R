@@ -4,7 +4,7 @@
 #' 2018) in 100 normal breast tissue samples and 100 primary breast tumours
 #' from The Cancer Genome Atlas (TCGA) BRCA cohort. This is the dataset of
 #' the TCGA example in the DiNA simulation paper. It is shipped here so that
-#' \pkg{spikeyglass}, \pkg{multiGGMr} and other packages use one identical
+#' \pkg{spikeyglass}, \pkg{multiGGM} and other packages use one identical
 #' object.
 #'
 #' @format A named list of two numeric matrices, \code{Normal} and

@@ -16,7 +16,7 @@ A named list of K symmetric p x p matrices with unit diagonal and
 variable names as dimnames. The names are the group names, or
 \code{"Group_1"}, \code{"Group_2"}, ... if the groups are unnamed. Methods
 document which estimate they return. For example, \pkg{spikeyglass}
-returns the MAP estimate and \pkg{multiGGMr} the posterior mean.
+returns the MAP estimate and \pkg{multiGGM} the posterior mean.
 }
 \description{
 Generic for extracting one partial-correlation matrix per group from a

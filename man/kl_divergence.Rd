@@ -13,7 +13,7 @@ kl_divergence(theta_hat, sigma_true)
 }
 \value{
 A non-negative number, or \code{NA} if \eqn{\Sigma\hat\Theta}
-has a non-positive determinant (e.g. \code{theta_hat} is not positive
+has a zero or negative determinant (e.g. \code{theta_hat} is not positive
 definite), the inputs have missing values, or the computation fails.
 }
 \description{

@@ -16,6 +16,9 @@ multiGGMr merged into one.
 * `confusion_at_threshold()`, `roc_auc()` and `pr_auc()` accept vectors of
   edge scores and truths as well as p x p matrices.
 * `stats` added to Imports.
+* New `pcor_estimate()` method for joint graphical lasso fits from
+  `JGL::JGL()` (class `"jgl"`). It only reads `fit$theta`, so ggmtools
+  does not depend on JGL. Fits must use `return.whole.theta = TRUE`.
 
 Old to new names:
 
