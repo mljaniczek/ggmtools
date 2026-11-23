@@ -189,7 +189,7 @@ inference columns, using `lower`/`upper` for intervals.
 - Busatto, C. & Stingo, F.C. (2025). Inference of multiple
   high-dimensional networks with the Graphical Horseshoe prior. *Journal
   of Computational and Graphical Statistics*.
-  [doi:10.1080/10618600.2024.2435480](https://doi.org/10.1080/10618600.2024.2435480)
+  <doi:10.1080/10618600.2024.2435480>
 - Danaher, P., Wang, P. & Witten, D.M. (2014). The joint graphical lasso
   for inverse covariance estimation across multiple classes. *Journal of
   the Royal Statistical Society: Series B*, 76(2), 373-397.
