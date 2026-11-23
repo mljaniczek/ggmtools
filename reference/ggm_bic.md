@@ -34,8 +34,8 @@ ggm_bic(data_list, theta_list, threshold = 0.001)
 
 ## Value
 
-A number; `NA` if any \\\hat\Theta_k\\ has missing values or a
-non-positive determinant, or the data have missing values.
+A number; `NA` if any \\\hat\Theta_k\\ has missing values or a zero or
+negative determinant, or the data have missing values.
 
 ## References
 

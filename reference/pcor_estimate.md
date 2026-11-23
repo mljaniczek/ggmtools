@@ -25,7 +25,7 @@ A named list of K symmetric p x p matrices with unit diagonal and
 variable names as dimnames. The names are the group names, or
 `"Group_1"`, `"Group_2"`, ... if the groups are unnamed. Methods
 document which estimate they return. For example, spikeyglass returns
-the MAP estimate and multiGGMr the posterior mean.
+the MAP estimate and multiGGM the posterior mean.
 
 ## See also
 

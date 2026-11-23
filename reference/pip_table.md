@@ -45,7 +45,7 @@ order, with columns
 
 Methods document how their PIPs are defined. For example, in spikeyglass
 the edge indicator is shared by all groups, so `pip` is identical across
-groups; in multiGGMr each group has its own graph.
+groups; in multiGGM each group has its own graph.
 
 ## See also
 

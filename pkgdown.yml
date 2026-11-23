@@ -1,8 +1,9 @@
 pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2026-11-20T18:43Z
+articles:
+  articles/other-methods: other-methods.html
+last_built: 2026-11-23T18:20Z
 urls:
   reference: https://mljaniczek.github.io/ggmtools/reference
   article: https://mljaniczek.github.io/ggmtools/articles

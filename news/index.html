@@ -16,6 +16,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -44,6 +45,7 @@
 <code><a href="../reference/confusion_at_threshold.html">confusion_at_threshold()</a></code>, <code><a href="../reference/roc_auc.html">roc_auc()</a></code> and <code><a href="../reference/pr_auc.html">pr_auc()</a></code> accept vectors of edge scores and truths as well as p x p matrices.</li>
 <li>
 <code>stats</code> added to Imports.</li>
+<li>New <code><a href="../reference/pcor_estimate.html">pcor_estimate()</a></code> method for joint graphical lasso fits from <code><a href="https://rdrr.io/pkg/JGL/man/JGL.html" class="external-link">JGL::JGL()</a></code> (class <code>"jgl"</code>). It only reads <code>fit$theta</code>, so ggmtools does not depend on JGL. Fits must use <code>return.whole.theta = TRUE</code>.</li>
 </ul><p>Old to new names:</p>
 <table class="table"><colgroup><col width="50%"><col width="50%"></colgroup><thead><tr><th>Old</th>
 <th>New</th>

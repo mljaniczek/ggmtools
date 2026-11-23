@@ -2,6 +2,8 @@
 <url><loc>https://mljaniczek.github.io/ggmtools/404.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/LICENSE-text.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/LICENSE.html</loc></url>
+<url><loc>https://mljaniczek.github.io/ggmtools/articles/index.html</loc></url>
+<url><loc>https://mljaniczek.github.io/ggmtools/articles/other-methods.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/authors.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/index.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/news/index.html</loc></url>
@@ -16,6 +18,7 @@
 <url><loc>https://mljaniczek.github.io/ggmtools/reference/index.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/reference/kl_divergence.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/reference/pcor_estimate.html</loc></url>
+<url><loc>https://mljaniczek.github.io/ggmtools/reference/pcor_estimate.jgl.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/reference/pip_table.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/reference/plot_roc.html</loc></url>
 <url><loc>https://mljaniczek.github.io/ggmtools/reference/pooled_perm_pvalues.html</loc></url>

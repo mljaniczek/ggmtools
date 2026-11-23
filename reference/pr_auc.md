@@ -62,8 +62,8 @@ Three summaries of the curve are available:
 
   Exact area under the curve obtained by interpolating true and false
   positives linearly within each tied block (Davis & Goadrich 2006; the
-  continuous version, as in the PRROC package). This is the expected PR
-  curve under random tie-breaking.
+  continuous version, as in the PRROC package). Precision is not linear
+  in recall within a block, so this differs from the trapezoid.
 
 Without ties, `"average_precision"` and `"interpolated"` are close; with
 large tied blocks `"trapezoid"` can be much larger than both.

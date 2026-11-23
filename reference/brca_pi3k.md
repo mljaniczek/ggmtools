@@ -4,7 +4,7 @@ RNA-seq expression of the 28 PI3K-pathway genes (Sanchez-Vega et al.
 2018) in 100 normal breast tissue samples and 100 primary breast tumours
 from The Cancer Genome Atlas (TCGA) BRCA cohort. This is the dataset of
 the TCGA example in the DiNA simulation paper. It is shipped here so
-that spikeyglass, multiGGMr and other packages use one identical object.
+that spikeyglass, multiGGM and other packages use one identical object.
 
 ## Usage
 

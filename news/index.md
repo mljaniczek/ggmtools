@@ -32,6 +32,12 @@ multiGGMr merged into one.
   [`pr_auc()`](https://mljaniczek.github.io/ggmtools/reference/pr_auc.md)
   accept vectors of edge scores and truths as well as p x p matrices.
 - `stats` added to Imports.
+- New
+  [`pcor_estimate()`](https://mljaniczek.github.io/ggmtools/reference/pcor_estimate.md)
+  method for joint graphical lasso fits from
+  [`JGL::JGL()`](https://rdrr.io/pkg/JGL/man/JGL.html) (class `"jgl"`).
+  It only reads `fit$theta`, so ggmtools does not depend on JGL. Fits
+  must use `return.whole.theta = TRUE`.
 
 Old to new names:
 

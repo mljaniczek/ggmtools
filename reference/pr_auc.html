@@ -22,6 +22,7 @@ scores), so the result does not depend on the order of the edges."></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -101,8 +102,8 @@ block.</p></dd>
 <dd><p>Exact area under the curve obtained by
 interpolating true and false positives linearly within each tied
 block (Davis &amp; Goadrich 2006; the continuous version, as in the
-<span class="pkg">PRROC</span> package). This is the expected PR curve under random
-tie-breaking.</p></dd>
+<span class="pkg">PRROC</span> package). Precision is not linear in recall within a
+block, so this differs from the trapezoid.</p></dd>
 
 
 </dl><p>Without ties, <code>"average_precision"</code> and <code>"interpolated"</code> are

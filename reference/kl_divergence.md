@@ -25,9 +25,9 @@ kl_divergence(theta_hat, sigma_true)
 
 ## Value
 
-A non-negative number, or `NA` if \\\Sigma\hat\Theta\\ has a
-non-positive determinant (e.g. `theta_hat` is not positive definite),
-the inputs have missing values, or the computation fails.
+A non-negative number, or `NA` if \\\Sigma\hat\Theta\\ has a zero or
+negative determinant (e.g. `theta_hat` is not positive definite), the
+inputs have missing values, or the computation fails.
 
 ## See also
 

@@ -16,6 +16,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -32,9 +33,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="edge-tables-and-generics">Edge tables and generics<a class="anchor" aria-label="anchor" href="#edge-tables-and-generics"></a></h2>
 
-
+      <div class="section-desc"><p>The shared long edge-table format, and generics that packages implement for their fitted models.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -43,38 +44,17 @@
 
       <dl><dt>
 
+          <code><a href="edge_index.html">edge_index()</a></code>
+
+        </dt>
+        <dd>Edge index in the shared edge-table format</dd>
+
+        <dt>
+
           <code><a href="as_pip_table.html">as_pip_table()</a></code>
 
         </dt>
         <dd>Build a long PIP table from per-group PIP matrices</dd>
-
-        <dt>
-
-          <code><a href="bayes_fdr.html">bayes_fdr()</a></code>
-
-        </dt>
-        <dd>Bayesian false discovery rate selection</dd>
-
-        <dt>
-
-          <code><a href="brca_pi3k.html">brca_pi3k</a></code>
-
-        </dt>
-        <dd>TCGA breast cancer PI3K pathway expression, Normal vs Tumor</dd>
-
-        <dt>
-
-          <code><a href="confusion_at_threshold.html">confusion_at_threshold()</a></code>
-
-        </dt>
-        <dd>Confusion metrics for edge selection at a threshold</dd>
-
-        <dt>
-
-          <code><a href="diff_adjacency.html">diff_adjacency()</a></code>
-
-        </dt>
-        <dd>Structural differential edges between two graphs</dd>
 
         <dt>
 
@@ -85,24 +65,10 @@
 
         <dt>
 
-          <code><a href="edge_index.html">edge_index()</a></code>
+          <code><a href="pip_table.html">pip_table()</a></code>
 
         </dt>
-        <dd>Edge index in the shared edge-table format</dd>
-
-        <dt>
-
-          <code><a href="ggm_bic.html">ggm_bic()</a></code>
-
-        </dt>
-        <dd>BIC for multiple Gaussian graphical models</dd>
-
-        <dt>
-
-          <code><a href="kl_divergence.html">kl_divergence()</a></code>
-
-        </dt>
-        <dd>Kullback-Leibler divergence of an estimated Gaussian graphical model</dd>
+        <dd>Posterior inclusion probabilities as a long edge table</dd>
 
         <dt>
 
@@ -113,24 +79,26 @@
 
         <dt>
 
-          <code><a href="pip_table.html">pip_table()</a></code>
+          <code><a href="pcor_estimate.jgl.html">pcor_estimate(<i>&lt;jgl&gt;</i>)</a></code>
 
         </dt>
-        <dd>Posterior inclusion probabilities as a long edge table</dd>
+        <dd>Partial correlations from a joint graphical lasso fit</dd>
+      </dl></div><div class="section level2">
+      <h2 id="evaluation-against-a-known-graph">Evaluation against a known graph<a class="anchor" aria-label="anchor" href="#evaluation-against-a-known-graph"></a></h2>
 
-        <dt>
 
-          <code><a href="plot_roc.html">plot_roc()</a></code>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="roc_auc.html">roc_auc()</a></code>
 
         </dt>
-        <dd>Plot an ROC curve</dd>
-
-        <dt>
-
-          <code><a href="pooled_perm_pvalues.html">pooled_perm_pvalues()</a></code>
-
-        </dt>
-        <dd>Empirical p-values against a pooled permutation null</dd>
+        <dd>ROC curve and AUC for edge recovery</dd>
 
         <dt>
 
@@ -141,12 +109,35 @@
 
         <dt>
 
-          <code><a href="precision_to_pcor.html">precision_to_pcor()</a></code>
+          <code><a href="plot_roc.html">plot_roc()</a></code>
 
         </dt>
-        <dd>Convert a precision matrix to partial correlations</dd>
+        <dd>Plot an ROC curve</dd>
 
         <dt>
+
+          <code><a href="confusion_at_threshold.html">confusion_at_threshold()</a></code>
+
+        </dt>
+        <dd>Confusion metrics for edge selection at a threshold</dd>
+
+        <dt>
+
+          <code><a href="topk_overlap.html">topk_overlap()</a></code>
+
+        </dt>
+        <dd>Overlap of the top-k edges of two score vectors</dd>
+      </dl></div><div class="section level2">
+      <h2 id="estimation-error-and-tuning">Estimation error and tuning<a class="anchor" aria-label="anchor" href="#estimation-error-and-tuning"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="relative_frobenius.html">relative_frobenius()</a></code>
 
@@ -155,10 +146,56 @@
 
         <dt>
 
-          <code><a href="roc_auc.html">roc_auc()</a></code>
+          <code><a href="kl_divergence.html">kl_divergence()</a></code>
 
         </dt>
-        <dd>ROC curve and AUC for edge recovery</dd>
+        <dd>Kullback-Leibler divergence of an estimated Gaussian graphical model</dd>
+
+        <dt>
+
+          <code><a href="ggm_bic.html">ggm_bic()</a></code>
+
+        </dt>
+        <dd>BIC for multiple Gaussian graphical models</dd>
+      </dl></div><div class="section level2">
+      <h2 id="edge-selection">Edge selection<a class="anchor" aria-label="anchor" href="#edge-selection"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="bayes_fdr.html">bayes_fdr()</a></code>
+
+        </dt>
+        <dd>Bayesian false discovery rate selection</dd>
+
+        <dt>
+
+          <code><a href="pooled_perm_pvalues.html">pooled_perm_pvalues()</a></code>
+
+        </dt>
+        <dd>Empirical p-values against a pooled permutation null</dd>
+      </dl></div><div class="section level2">
+      <h2 id="matrix-utilities">Matrix utilities<a class="anchor" aria-label="anchor" href="#matrix-utilities"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="precision_to_pcor.html">precision_to_pcor()</a></code>
+
+        </dt>
+        <dd>Convert a precision matrix to partial correlations</dd>
 
         <dt>
 
@@ -169,10 +206,10 @@
 
         <dt>
 
-          <code><a href="topk_overlap.html">topk_overlap()</a></code>
+          <code><a href="diff_adjacency.html">diff_adjacency()</a></code>
 
         </dt>
-        <dd>Overlap of the top-k edges of two score vectors</dd>
+        <dd>Structural differential edges between two graphs</dd>
 
         <dt>
 
@@ -180,8 +217,25 @@
 
         </dt>
         <dd>Symmetric matrix from an upper triangle</dd>
+      </dl></div><div class="section level2">
+      <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="brca_pi3k.html">brca_pi3k</a></code>
+
+        </dt>
+        <dd>TCGA breast cancer PI3K pathway expression, Normal vs Tumor</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
