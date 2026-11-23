@@ -1,4 +1,6 @@
-# ggmtools 0.0.0.9000
+# ggmtools 0.1.0
+
+* Initial CRAN submission.
 
 ## Evaluation and inference helpers from the DiNA simulation
 
