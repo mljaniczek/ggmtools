@@ -2,3 +2,45 @@ url: https://mljaniczek.github.io/ggmtools/
 template:
   bootstrap: 5
 
+articles:
+- title: Articles
+  contents:
+  - articles/other-methods
+
+reference:
+- title: Edge tables and generics
+  desc: >
+    The shared long edge-table format, and generics that packages implement
+    for their fitted models.
+  contents:
+  - edge_index
+  - as_pip_table
+  - diff_edge_table
+  - pip_table
+  - pcor_estimate
+  - pcor_estimate.jgl
+- title: Evaluation against a known graph
+  contents:
+  - roc_auc
+  - pr_auc
+  - plot_roc
+  - confusion_at_threshold
+  - topk_overlap
+- title: Estimation error and tuning
+  contents:
+  - relative_frobenius
+  - kl_divergence
+  - ggm_bic
+- title: Edge selection
+  contents:
+  - bayes_fdr
+  - pooled_perm_pvalues
+- title: Matrix utilities
+  contents:
+  - precision_to_pcor
+  - threshold_to_adjacency
+  - diff_adjacency
+  - upper_tri_to_matrix
+- title: Data
+  contents:
+  - brca_pi3k

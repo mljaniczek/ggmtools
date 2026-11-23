@@ -16,7 +16,7 @@ non-zero. Default 0.001.}
 }
 \value{
 A number; \code{NA} if any \eqn{\hat\Theta_k} has missing values
-or a non-positive determinant, or the data have missing values.
+or a zero or negative determinant, or the data have missing values.
 }
 \description{
 A BIC-type criterion for tuning joint estimators of K precision matrices

@@ -1,0 +1,156 @@
+---
+title: "Using ggmtools with other methods"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+ggmtools has two layers:
+
+* **Generics** (`pip_table()`, `pcor_estimate()`) that a package
+  implements for its own fitted objects. spikeyglass and multiGGM provide
+  methods, and ggmtools itself provides `pcor_estimate()` for JGL fits, so
+  the same downstream code runs on fits from any of them.
+* **Matrix-level functions** for everything else: evaluation, losses,
+  tuning, edge selection and edge tables. These take precision,
+  partial-correlation, score or adjacency matrices, or vectors of
+  probabilities and p-values, never a fitted object. They work with any
+  estimator once its output is pulled out as a matrix.
+
+This article shows the second layer with the joint graphical lasso (JGL;
+Danaher, Wang & Witten 2014), then how to give a new method the first
+layer.
+
+## Which functions apply to which output
+
+| The method returns | Examples | ggmtools functions |
+|---|---|---|
+| Precision matrices, one per group | JGL (fused or group; `pcor_estimate()` works on its fits), graphical lasso per group, spikeyglass, inverse covariance | `precision_to_pcor()`, `threshold_to_adjacency()`, `kl_divergence()`, `relative_frobenius()`, `ggm_bic()` (tuning), then everything below |
+| Partial correlations, as matrices or upper-triangle vectors | multiGGM `pcor_estimate()`, DiNGO | `upper_tri_to_matrix()`, `diff_edge_table()`, `threshold_to_adjacency()` |
+| Edge scores (higher = more likely an edge or a difference) | \|partial correlation\|, random-forest importance (JRF), D-trace \|Δ\|, test statistics | `roc_auc()`, `pr_auc()`, `confusion_at_threshold()`, `topk_overlap()` |
+| Posterior edge probabilities | multiGGM (MRF priors and mGHS), spikeyglass `pip_table()` | `bayes_fdr()`, and the score functions above |
+| Permutation or bootstrap null scores | any method refitted on permuted labels | `pooled_perm_pvalues()` |
+| Estimated graphs (0/1) | any thresholded or selected graph | `confusion_at_threshold()`, `diff_adjacency()` |
+
+## Example: the joint graphical lasso
+
+The JGL package was archived on CRAN in July 2025; install it from the
+CRAN archive or with `remotes::install_github("cran/JGL")`. It returns a
+list whose `theta` element holds one precision matrix per group. Tune the
+two penalties with `ggm_bic()`, the BIC used with JGL in the Koyejo lab
+code (smaller is better):
+
+```{r jgl-tune, message = FALSE}
+library(ggmtools)
+library(JGL)
+
+grid <- expand.grid(lambda1 = c(0.05, 0.1, 0.2, 0.3),
+                    lambda2 = c(0.01, 0.05, 0.1))
+grid$bic <- apply(grid, 1, function(g) {
+  fit <- JGL(brca_pi3k, penalty = "fused", lambda1 = g[["lambda1"]],
+             lambda2 = g[["lambda2"]], return.whole.theta = TRUE)
+  ggm_bic(brca_pi3k, fit$theta)
+})
+best <- grid[which.min(grid$bic), ]
+best
+```
+
+Refit at the chosen penalties. ggmtools has a `pcor_estimate()` method
+for JGL fits, which converts each precision matrix with
+`precision_to_pcor()`. JGL does not store group names, so pass them, and
+fit with `return.whole.theta = TRUE` so that every variable is kept:
+
+```{r jgl-fit}
+fit <- JGL(brca_pi3k, penalty = "fused", lambda1 = best$lambda1,
+           lambda2 = best$lambda2, return.whole.theta = TRUE)
+genes <- colnames(brca_pi3k$Normal)
+pcor <- pcor_estimate(fit, groupnames = names(brca_pi3k))
+
+# Number of edges in each group's graph
+sapply(fit$theta, function(theta) sum(threshold_to_adjacency(theta, 1e-8)) / 2)
+```
+
+The fused penalty sets many differences to exactly 0. `diff_edge_table()`
+lists the rest in the shared edge-table format:
+
+```{r jgl-diff}
+d <- diff_edge_table(pcor$Normal, pcor$Tumor, threshold = 1e-8, varnames = genes)
+nrow(d)
+head(d[order(-abs(d$diff)), ])
+```
+
+Do JGL and the unregularized estimate agree on which edges change most?
+JGL ties every edge it fuses at a difference of exactly 0, so
+`topk_overlap()` counts those ties fairly instead of by edge position:
+
+```{r jgl-overlap}
+pcor_inv <- lapply(brca_pi3k, function(x) precision_to_pcor(solve(cov(x))))
+k <- c(10, 25, 50, 100, 200)
+data.frame(k = k,
+           overlap = topk_overlap(abs(pcor$Normal - pcor$Tumor),
+                                  abs(pcor_inv$Normal - pcor_inv$Tumor), k))
+```
+
+In a simulation, where the true graphs are known, the same estimates go
+straight into `roc_auc()`, `pr_auc()` and `confusion_at_threshold()`, with
+`abs(pcor$Normal)` (or `threshold_to_adjacency(fit$theta[[1]], 1e-8)`) as
+the score and the true adjacency matrix as the truth.
+
+## Example: the multiple graphical horseshoe (mGHS)
+
+mGHS (Busatto & Stingo 2025) is fitted in multiGGM with
+`multiggm_mcmc(method = "mghs")`. The fit is a multiGGM fit, so the
+ggmtools generics work directly. The horseshoe prior has no point mass at
+zero, so multiGGM defines the edge probability from the shrinkage weights,
+\(P(w_{k,ij} > 0.5)\) with \(w = \lambda^2 / (1 + \lambda^2)\); see the
+multiGGM documentation.
+
+```{r mghs, eval = FALSE}
+library(multiGGM)
+fit <- multiggm_mcmc(data_list = brca_pi3k, method = "mghs")
+
+pips <- pip_table(fit)       # long table: i, j, node1, node2, group, pip
+pcor <- pcor_estimate(fit)   # list of partial-correlation matrices
+
+normal <- pips[pips$group == "Normal", ]
+normal$selected <- bayes_fdr(normal$pip, alpha = 0.05)
+```
+
+## Giving a new method the generics
+
+`pip_table()` and `pcor_estimate()` form a common interface. Supporting a
+new method means writing an *adapter*: S3 methods that convert its fitted
+object into the shared output. ggmtools ships the adapter for JGL fits
+(class `"jgl"`), and it is a template for others. Here it is for a
+hypothetical method whose fits have class `"mymethod"` and store a list
+of precision matrices in `fit$precision`:
+
+```{r adapter, eval = FALSE}
+pcor_estimate.mymethod <- function(fit, varnames = NULL, groupnames = NULL, ...) {
+  out <- lapply(fit$precision, precision_to_pcor)
+  p <- nrow(out[[1]])
+  varnames <- if (!is.null(varnames)) varnames else
+    if (!is.null(rownames(out[[1]]))) rownames(out[[1]]) else paste0("V", seq_len(p))
+  out <- lapply(out, function(m) { dimnames(m) <- list(varnames, varnames); m })
+  names(out) <- if (!is.null(groupnames)) groupnames else
+    paste0("Group_", seq_along(out))
+  out
+}
+```
+
+In a script, defining the function is enough for dispatch. In a package,
+register it with `S3method(ggmtools::pcor_estimate, mymethod)` in the
+NAMESPACE (with roxygen: `@exportS3Method ggmtools::pcor_estimate`). A
+method that returns posterior probabilities can build its `pip_table()`
+output with `as_pip_table()`.
+
+## References
+
+* Busatto, C. & Stingo, F.C. (2025). Inference of multiple
+  high-dimensional networks with the Graphical Horseshoe prior. *Journal
+  of Computational and Graphical Statistics*.
+  [doi:10.1080/10618600.2024.2435480](https://doi.org/10.1080/10618600.2024.2435480)
+* Danaher, P., Wang, P. & Witten, D.M. (2014). The joint graphical lasso
+  for inverse covariance estimation across multiple classes. *Journal of
+  the Royal Statistical Society: Series B*, 76(2), 373-397.

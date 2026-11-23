@@ -51,3 +51,38 @@ test_that("brca_pi3k has the documented structure", {
   expect_equal(g$Gene, colnames(brca_pi3k$Normal))
   expect_true(all(g$pathway == "PI3K"))
 })
+
+test_that("pcor_estimate.jgl converts each group's precision matrix", {
+  th1 <- matrix(c(2, -0.8, 0, -0.8, 2, -0.5, 0, -0.5, 1.5), 3, 3,
+                dimnames = list(c("a", "b", "c"), c("a", "b", "c")))
+  th2 <- diag(3)
+  fit <- structure(list(theta = list(th1, th2), connected = rep(TRUE, 3)),
+                   class = "jgl")
+  P <- pcor_estimate(fit)
+  expect_named(P, c("Group_1", "Group_2"))
+  expect_equal(P$Group_1, precision_to_pcor(th1))
+  expect_equal(dimnames(P$Group_2), list(c("a", "b", "c"), c("a", "b", "c")))
+  expect_equal(unname(P$Group_2), diag(3))
+  P2 <- pcor_estimate(fit, varnames = c("x", "y", "z"), groupnames = c("N", "T"))
+  expect_named(P2, c("N", "T"))
+  expect_equal(rownames(P2$T), c("x", "y", "z"))
+  # No dimnames on the estimates
+  fit_unnamed <- structure(list(theta = list(unname(th1))), class = "jgl")
+  expect_equal(rownames(pcor_estimate(fit_unnamed)[[1]]), c("V1", "V2", "V3"))
+  expect_error(pcor_estimate(fit, varnames = c("x", "y")), "length p")
+})
+
+test_that("pcor_estimate.jgl rejects fits without the whole theta", {
+  # return.whole.theta = FALSE drops unconnected variables from theta
+  fit <- structure(list(theta = list(diag(2), diag(2)),
+                        connected = c(TRUE, TRUE, FALSE)), class = "jgl")
+  expect_error(pcor_estimate(fit), "return.whole.theta = TRUE")
+  expect_error(pcor_estimate(structure(list(theta = NULL), class = "jgl")),
+               "non-empty list")
+})
+
+test_that("pcor_estimate.jgl gives NA with a warning for a bad estimate", {
+  fit <- structure(list(theta = list(diag(c(1, -1)))), class = "jgl")
+  expect_warning(P <- pcor_estimate(fit), "non-positive")
+  expect_true(all(is.na(P[[1]])))
+})
