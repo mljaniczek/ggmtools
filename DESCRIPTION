@@ -2,7 +2,7 @@ Package: ggmtools
 Title: Shared Tools for Multiple Gaussian Graphical Model Packages
 Version: 0.1.0
 Authors@R: c(
-    person("Margaret", "Janiczek", , "mjaniczek@umass.edu", role = c("aut", "cre", "cph")),
+    person("Margaret", "Janiczek", , "margie.janiczek@gmail.com", role = c("aut", "cre", "cph")),
     person("Raji", "Balasubramanian", , "rbalasub@umass.edu", role = "aut")
   )
 Description: Generics, evaluation metrics and data shared by packages that
