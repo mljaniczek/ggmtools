@@ -16,15 +16,17 @@ and 'multiGGM', currently on GitHub). It depends only on base packages
 ## Test environments
 
 * local macOS (aarch64), R 4.5.2
-<!-- TODO before submitting: run these and update this list.
 * GitHub Actions: macOS, Windows and Ubuntu (R release), Ubuntu (R devel
   and R oldrel-1)
 * win-builder (R devel)
--->
 
-The 1 note is the new-submission note. (Locally there were also notes
-about an unreachable time server and an old HTML Tidy, which come from
-the check machine, not the package.)
+The 1 note is the new-submission note. On win-builder it also lists
+possibly misspelled words in DESCRIPTION: Danaher, Goadrich, TCGA, et al.
+and phosphoinositide. These are author surnames, The Cancer Genome Atlas
+acronym, the citation abbreviation and a gene-pathway term, and are
+spelled correctly. (Locally there were also notes about an unreachable
+time server and an old HTML Tidy, which come from the check machine, not
+the package.)
 
 ## Notes for reviewers
 
