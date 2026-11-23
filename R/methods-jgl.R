@@ -3,7 +3,9 @@
 #' [pcor_estimate()] method for fits from \code{JGL::JGL()} (class
 #' \code{"jgl"}; Danaher, Wang & Witten 2014): converts each group's
 #' estimated precision matrix with [precision_to_pcor()]. It only reads
-#' \code{fit$theta}, so ggmtools does not depend on \pkg{JGL}.
+#' \code{fit$theta}, so ggmtools does not depend on \pkg{JGL}. (JGL was
+#' archived on CRAN in July 2025; it can be installed from the CRAN archive
+#' or with \code{remotes::install_github("cran/JGL")}.)
 #'
 #' @param fit A \code{"jgl"} object from \code{JGL::JGL()}, fitted with
 #'   \code{return.whole.theta = TRUE}. With the default
@@ -32,12 +34,6 @@
 #' theta <- list(diag(3), matrix(c(2, -0.5, 0, -0.5, 2, 0, 0, 0, 1), 3, 3))
 #' fit <- structure(list(theta = theta, connected = rep(TRUE, 3)), class = "jgl")
 #' pcor_estimate(fit, varnames = c("a", "b", "c"), groupnames = c("A", "B"))
-#'
-#' \dontrun{
-#' fit <- JGL::JGL(brca_pi3k, penalty = "fused", lambda1 = 0.1,
-#'                 lambda2 = 0.01, return.whole.theta = TRUE)
-#' pcor_estimate(fit, groupnames = names(brca_pi3k))
-#' }
 pcor_estimate.jgl <- function(fit, varnames = NULL, groupnames = NULL, ...) {
   theta <- fit$theta
   if (!is.list(theta) || length(theta) < 1) stop("fit$theta must be a non-empty list")

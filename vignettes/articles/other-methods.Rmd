@@ -35,7 +35,8 @@ layer.
 
 ## Example: the joint graphical lasso
 
-The [JGL](https://cran.r-project.org/package=JGL) package returns a
+The JGL package was archived on CRAN in July 2025; install it from the
+CRAN archive or with `remotes::install_github("cran/JGL")`. It returns a
 list whose `theta` element holds one precision matrix per group. Tune the
 two penalties with `ggm_bic()`, the BIC used with JGL in the Koyejo lab
 code (smaller is better):
